@@ -1,0 +1,176 @@
+{
+    "name": "ocr-space",
+    "version": "1.0.0",
+    "label": "OCRSpace",
+    "description": "The OCR API provides a simple way of parsing images and multi-page PDF documents (PDF OCR) and getting the extracted text results returned in a JSON format.",
+    "publisher": "spryIQ.co",
+    "icon_small_name": "ocrspacelogo32x32.png",
+    "icon_large_name": "ocrspacelogo100x100.png",
+    "category": "Text Extraction",
+    "cs_compatible": true,
+    "cs_approved": false,
+    "help_online": "",
+    "configuration": {
+        "fields": [
+            {
+                "title": "Server URL",
+                "type": "text",
+                "description": "URL of the ocr.space connector endpoint server to which you will connect and perform the automated operations.",
+                "tooltip": "URL of the ocr.space connector endpoint server to which you will connect and perform the automated operations.",
+                "value": "api.ocr.space",
+                "placeholder": "api.ocr.space",
+                "name": "server",
+                "required": true,
+                "visible": true,
+                "editable": true
+            },
+            {
+                "title": "API Key",
+                "type": "text",
+                "description": "API key required for authentication.",
+                "tooltip": "API key required for authentication.",
+                "value": "",
+                "name": "api_key",
+                "required": true,
+                "visible": true,
+                "editable": true
+            },
+            {
+                "title": "Language",
+                "type": "text",
+                "description": "Language used for OCR. If no language is specified, English 'eng' is taken as default.",
+                "tooltip": "Language used for OCR. If no language is specified, English 'eng' is taken as default.",
+                "value": "eng",
+                "name": "language",
+                "required": false,
+                "visible": true,
+                "editable": true
+            },
+            {
+                "title": "Verify SSL",
+                "name": "verify_ssl",
+                "type": "checkbox",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "value": true,
+                "description": "Specifies whether the SSL certificate for the server is to be verified or not."
+            }
+        ]
+    },
+    "operations": [
+        {
+            "operation": "parse_image",
+            "title": "Parse Image",
+            "description": "Simple way of parsing images and multi-page PDF documents (PDF OCR) and getting the extracted text results.",
+            "category": "utilities",
+            "annotation": "parse_image",
+            "output_schema": {
+                "ParsedResults": [
+                    {
+                        "TextOverlay": {},
+                        "FileParseExitCode": "",
+                        "ParsedText": "",
+                        "ErrorMessage": "",
+                        "ErrorDetails": ""
+                    },
+                    {
+                        "TextOverlay": {},
+                        "FileParseExitCode": "",
+                        "ParsedText": "",
+                        "ErrorMessage": "",
+                        "ErrorDetails": ""
+                    }
+                ],
+                "OCRExitCode": "",
+                "IsErroredOnProcessing": false,
+                "ErrorMessage": "",
+                "ErrorDetails": "",
+                "SearchablePDFURL": "",
+                "ProcessingTimeInMilliseconds": ""
+            },
+            "parameters": [
+                {
+                    "title": "Image Source Type",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "select",
+                    "name": "image_source",
+                    "tooltip": "Select image source type that is how you want to provide image.",
+                    "description": "Select image source type that is how you want to provide image.",
+                    "options": [
+                        "url",
+                        "file",
+                        "base64image"
+                    ],
+                    "onchange": {
+                        "url": [
+                            {
+                                "title": "imageURL",
+                                "required": true,
+                                "visible": true,
+                                "editable": true,
+                                "type": "text",
+                                "name": "image_url",
+                                "placeholder": "https://ocr.space/Content/Images/ocr.space.logo.png",
+                                "description": "URL of remote image file (Make sure it has the right content type).",
+                                "tooltip": "URL of remote image file (Make sure it has the right content type)."
+                            }
+                        ],
+                        "file": [
+                            {
+                                "name": "input",
+                                "title": "Type",
+                                "type": "select",
+                                "options": [
+                                    "Attachment ID",
+                                    "File IRI"
+                                ],
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "description": "Type of file that you want to submit to VirusTotal for analysis. Type can be an Attachment ID or a File IRI."
+                            },
+                            {
+                                "name": "value",
+                                "title": "Reference ID",
+                                "type": "text",
+                                "editable": true,
+                                "visible": true,
+                                "required": true,
+                                "value": "",
+                                "description": "Reference ID that is used to access the attachment metadata from the FortiSOAR\u2122 Attachments module.\nIn the playbook, this defaults to the{{vars.attachment_id}} value or the {{vars.file_iri}} value."
+                            }
+                        ],
+                        "base64image": [
+                            {
+                                "title": "Base64Image",
+                                "required": true,
+                                "visible": true,
+                                "editable": true,
+                                "type": "text",
+                                "name": "base64_image",
+                                "description": "Submitting file via base64.",
+                                "tooltip": "Submitting file via base64."
+                            },
+                            {
+                                "title": "File Type",
+                                "required": true,
+                                "visible": true,
+                                "editable": true,
+                                "type": "text",
+                                "name": "file_type",
+                                "placeholder": "jpeg or png",
+                                "description": "Type of submitted file via base64.",
+                                "tooltip": "Type of submitted file via base64."
+                            }
+                        ]
+                    }
+                }
+            ],
+            "enabled": true
+        }
+    ]
+}

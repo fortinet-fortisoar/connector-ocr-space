@@ -1,0 +1,388 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "@context": "/api/3/contexts/WorkflowCollection",
+      "@type": "WorkflowCollection",
+      "name": "Sample - OCR Space - 1.0.0",
+      "description": "Sample playbooks for \"OCR Space\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
+      "visible": true,
+      "image": null,
+      "id": 193,
+      "createDate": 1655116187,
+      "modifyDate": 1655116187,
+      "recordTags": [],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Parsing: Base64 Image Details",
+          "aliasName": null,
+          "tag": null,
+          "description": "Parse image as string in base64 format .",
+          "isActive": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655116662,
+          "collection": "/api/3/workflow_collections/a5d3fa78-be42-4721-990e-345fe3bd24df",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/b77ab640-4ef2-44a1-9fc9-d50e09c4d6ab",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Parse Image",
+              "description": null,
+              "arguments": {
+                "name": "OCRSpace",
+                "config": "fd7148e4-3036-49d9-8ed7-aeda7e7e603c",
+                "params": {
+                  "file_type": "{{vars.file_type}}",
+                  "base64_image": "{{vars.base64image}}",
+                  "image_source": "base64image"
+                },
+                "version": "1.0.0",
+                "connector": "ocr-space",
+                "operation": "parse_image",
+                "operationTitle": "Parse Image",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "903f4357-73ae-4acb-aed7-114b2a640c95",
+              "id": 10942
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "3d01123a-764d-452a-a3f5-588156e06180",
+                "resources": [
+                  "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "attachments": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "b77ab640-4ef2-44a1-9fc9-d50e09c4d6ab",
+              "id": 10940
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configurations",
+              "description": null,
+              "arguments": {
+                "file_type": "png",
+                "base64image": "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"
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "fb71503c-3d96-4845-9dca-bf77b397d3e8",
+              "id": 10941
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configurations -> Parse Image",
+              "targetStep": "/api/3/workflow_steps/903f4357-73ae-4acb-aed7-114b2a640c95",
+              "sourceStep": "/api/3/workflow_steps/fb71503c-3d96-4845-9dca-bf77b397d3e8",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "500f432b-9310-4fad-8ff7-576e6e79fc74"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configurations",
+              "targetStep": "/api/3/workflow_steps/fb71503c-3d96-4845-9dca-bf77b397d3e8",
+              "sourceStep": "/api/3/workflow_steps/b77ab640-4ef2-44a1-9fc9-d50e09c4d6ab",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "e433126c-c93a-4692-b2a4-99c7dca6243b"
+            }
+          ],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "245ee985-65a1-45b3-a1d3-9d94b103d569",
+          "recordTags": [],
+          "id": 2199,
+          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "createDate": 1655116332,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1655116662,
+          "owners": [],
+          "isPrivate": false
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Parsing: Image File",
+          "aliasName": null,
+          "tag": null,
+          "description": null,
+          "isActive": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655117307,
+          "collection": "/api/3/workflow_collections/a5d3fa78-be42-4721-990e-345fe3bd24df",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/a3710cd4-38ff-4bca-b53f-e0e5dba5a4c2",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "resource": "attachments",
+                "resources": [
+                  "attachments"
+                ],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": [
+                      "{{vars.input.records[0]}}"
+                    ]
+                  }
+                },
+                "fieldbasedtrigger": {
+                  "sort": [],
+                  "limit": 30,
+                  "logic": "AND",
+                  "filters": []
+                }
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/ea155646-3821-4542-9702-b246da430a8d",
+              "uuid": "a3710cd4-38ff-4bca-b53f-e0e5dba5a4c2",
+              "id": 10946
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Parse File Image",
+              "description": null,
+              "arguments": {
+                "name": "OCRSpace",
+                "config": "fd7148e4-3036-49d9-8ed7-aeda7e7e603c",
+                "params": {
+                  "input": "Attachment ID",
+                  "value": "{{vars.image_file_iri}}",
+                  "image_source": "file"
+                },
+                "version": "1.0.0",
+                "connector": "ocr-space",
+                "operation": "parse_image",
+                "operationTitle": "Parse Image",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "cd0b0bfd-f45e-4d33-94bf-96047cde8709",
+              "id": 10948
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configurations",
+              "description": null,
+              "arguments": {
+                "image_file_iri": "{{vars.input.records[0]['@id']}}"
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "d223516b-90ac-4337-8f3e-0154a5fb51b0",
+              "id": 10947
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configurations",
+              "targetStep": "/api/3/workflow_steps/d223516b-90ac-4337-8f3e-0154a5fb51b0",
+              "sourceStep": "/api/3/workflow_steps/a3710cd4-38ff-4bca-b53f-e0e5dba5a4c2",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "0403569f-dd4f-4795-834e-ad0b14244c94"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configurations -> Parse File Image",
+              "targetStep": "/api/3/workflow_steps/cd0b0bfd-f45e-4d33-94bf-96047cde8709",
+              "sourceStep": "/api/3/workflow_steps/d223516b-90ac-4337-8f3e-0154a5fb51b0",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "e3c233f7-ba49-495c-8081-672b7c3a8749"
+            }
+          ],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "8ea733fa-9a93-49cd-be18-698a2a1f64fb",
+          "recordTags": [],
+          "id": 2201,
+          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "createDate": 1655117120,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1655117307,
+          "owners": [],
+          "isPrivate": false
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Parsing: Image URL",
+          "aliasName": null,
+          "tag": null,
+          "description": null,
+          "isActive": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1655117030,
+          "collection": "/api/3/workflow_collections/a5d3fa78-be42-4721-990e-345fe3bd24df",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/d23aeffe-1102-4a62-bff5-229c74ac31c4",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Parse Image URL",
+              "description": null,
+              "arguments": {
+                "name": "OCRSpace",
+                "config": "fd7148e4-3036-49d9-8ed7-aeda7e7e603c",
+                "params": {
+                  "image_url": "https://ocr.space/Content/Images/ocr.space.logo.png",
+                  "image_source": "url"
+                },
+                "version": "1.0.0",
+                "connector": "ocr-space",
+                "operation": "parse_image",
+                "operationTitle": "Parse Image",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "89b0735c-c6bb-4c59-bf92-a01a12195cca",
+              "id": 10945
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "7df708e7-fcd9-43dd-842c-735899217549",
+                "resources": [
+                  "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "attachments": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "d23aeffe-1102-4a62-bff5-229c74ac31c4",
+              "id": 10943
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configurations",
+              "description": null,
+              "arguments": {
+                "image_url": "https://ocr.space/Content/Images/ocr.space.logo.png"
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "da0ddb99-555a-4966-800e-84bf82b21398",
+              "id": 10944
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configurations",
+              "targetStep": "/api/3/workflow_steps/da0ddb99-555a-4966-800e-84bf82b21398",
+              "sourceStep": "/api/3/workflow_steps/d23aeffe-1102-4a62-bff5-229c74ac31c4",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "53d99c41-67ae-47f8-9535-da734fa99b2c"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configurations -> Parse Image URL",
+              "targetStep": "/api/3/workflow_steps/89b0735c-c6bb-4c59-bf92-a01a12195cca",
+              "sourceStep": "/api/3/workflow_steps/da0ddb99-555a-4966-800e-84bf82b21398",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "ec450795-ce0d-4867-870a-c9d1be8e70e9"
+            }
+          ],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "a34f7f5a-b031-41e0-9223-dd73a6799a60",
+          "recordTags": [],
+          "id": 2200,
+          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "createDate": 1655116865,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1655117031,
+          "owners": [],
+          "isPrivate": false
+        }
+      ]
+    }
+  ],
+  "exported_tags": []
+}
