@@ -1,5 +1,5 @@
 """ Copyright start
-  Copyright (C) 2008 - 2021 Fortinet Inc.
+  Copyright (C) 2008 - 2022 Fortinet Inc.
   All rights reserved.
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
@@ -7,9 +7,9 @@
 import requests
 import subprocess
 
+from connectors.core.connector import get_logger, ConnectorError
 from connectors.cyops_utilities.builtins import download_file_from_cyops
 from integrations.crudhub import make_request
-from connectors.core.connector import get_logger, ConnectorError
 from os.path import join
 
 logger = get_logger('ocr-space')
@@ -24,7 +24,10 @@ class OCRSpace(object):
             self.base_url = 'https://' + self.base_url
         self.api_key = config.get('api_key')
         self.verify_ssl = config.get('verify_ssl')
-        self.payload = {'isOverlayRequired': 'True', 'apikey': self.api_key, 'language': 'eng'}
+        language_dict = {"Arabic": "ara", "Bulgarian": "bul", "Chinese(Simplified)": "chs", "Chinese(Traditional)": "cht", "Croatian": "hrv", "Czech": "cze", "Danish": "dan", "Dutch": "dut", "English": "eng", "Finnish": "fin", "French": "fre", "German": "ger", "Greek": "gre", "Hungarian": "hun", "Korean": "kor", "Italian": "ita", "Japanese": "jpn", "Polish": "pol", "Portuguese": "por", "Russian": "rus", "Slovenian": "slv", "Spanish": "spa", "Swedish": "swe", "Turkish": "tur", "Hindi": "hin", "Kannada": "kan", "Persian (Fari)": "per", "Telugu": "tel", "Tamil": "tam", "Thai": "tai", "Vietnamese": "vie"}
+        language = config.get('language')
+        self.lan = language_dict[language]
+        self.payload = {'isOverlayRequired': 'True', 'apikey': self.api_key, 'language': self.lan}
         self.__setupSession()
 
     def __setupSession(self):
@@ -55,7 +58,7 @@ class OCRSpace(object):
             file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
             logger.info(file_path)
             out = subprocess.Popen(["file", str(file_path)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            stdout,stderr = out.communicate()
+            stdout, stderr = out.communicate()
             file_type = {'filetype': str(stdout).split(' ')[1]}
             data.update(file_type)
             with open(file_path, 'rb') as attachment:
@@ -134,4 +137,5 @@ def _check_health(config):
         if res:
             return True
     except Exception as Err:
-        raise ConnectorError('Invalid URL or Credentials')
+        logger.exception('Health check failed with an error {}'.format(Err))
+        raise ConnectorError('Health check failed with an error {}'.format(Err))
