@@ -1,0 +1,99 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "6cb6a9fa-21fe-4e55-9b5d-dfcf281b253d",
+      "@type": "WorkflowCollection",
+      "name": "Sample - OCRSpace - 1.0.0",
+      "description": "The OCR API provides a simple way of parsing images and multi-page PDF documents (PDF OCR) and extract text results. This connector facilitates automated operations related to extracting data from image or document.",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "Ocr",
+        "ocr-space"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "ad6b091a-54c7-41d3-a307-00e0938056c4",
+          "collection": "/api/3/workflow_collections/6cb6a9fa-21fe-4e55-9b5d-dfcf281b253d",
+          "triggerLimit": null,
+          "description": "Simple way of parsing images and multi-page PDF documents (PDF OCR) and getting the extracted text results.",
+          "name": "Parse Image",
+          "tag": "#OCRSpace",
+          "recordTags": [
+            "Ocr",
+            "ocr-space"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/9b2a19cc-20ac-401d-b76e-711ec6fc311d",
+          "steps": [
+            {
+              "uuid": "9b2a19cc-20ac-401d-b76e-711ec6fc311d",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "00a57fe1-96af-4ed3-b086-e8127dee1a05",
+                "title": "OCRSpace: Parse Image",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "d73b6edb-d5a2-4fd4-9bb2-25d94f3bce51",
+              "@type": "WorkflowStep",
+              "name": "Parse Image",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "OCRSpace",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "ocr-space",
+                "operation": "parse_image",
+                "operationTitle": "Parse Image",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "ccae4018-971b-4911-ae96-39b2ec530ef7",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Parse Image",
+              "sourceStep": "/api/3/workflow_steps/9b2a19cc-20ac-401d-b76e-711ec6fc311d",
+              "targetStep": "/api/3/workflow_steps/d73b6edb-d5a2-4fd4-9bb2-25d94f3bce51"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
