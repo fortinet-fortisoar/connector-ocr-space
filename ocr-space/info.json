@@ -9,7 +9,7 @@
     "category": "utilities",
     "cs_compatible": true,
     "cs_approved": false,
-    "help_online": "https://github.com/bidisha-spryiq/connector-ocr-space/blob/develop/docs/OCRSpaceConnectorDoc.md",
+    "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/ocrspace/301/ocrspace-v1-0-0",
     "configuration": {
         "fields": [
             {
@@ -94,7 +94,7 @@
             "operation": "parse_image",
             "title": "Parse Image",
             "description": "Simple way of parsing images and multi-page PDF documents (PDF OCR) and getting the extracted text results.",
-            "category": "utilities",
+            "category": "investigation",
             "annotation": "parse_image",
             "output_schema": {
                 "ParsedResults": [
